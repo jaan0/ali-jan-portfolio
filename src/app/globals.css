@@ -1,42 +1,1869 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
+*,
+:after,
+:before {
   box-sizing: border-box;
-  padding: 0;
+  border: 0 solid #e5e7eb;
+}
+
+:after,
+:before {
+  --tw-content: "";
+}
+
+body {
   margin: 0;
+  line-height: inherit;
+}
+
+hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+
+h1,
+h2,
+h3 {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: inherit;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+button,
+input {
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  text-transform: none;
+}
+
+button {
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+}
+
+h1,
+h2,
+h3,
+hr,
+p {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+input::placeholder {
+  opacity: 1;
+  color: #9ca3af;
+}
+
+button {
+  cursor: pointer;
+}
+
+:disabled {
+  cursor: default;
+}
+
+img,
+svg {
+  /* display: block; */
+  vertical-align: middle;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+*,
+:after,
+:before {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.static {
+  position: static;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.bottom-full {
+  bottom: 100%;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
+.right-3 {
+  right: 0.75rem;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.top-3 {
+  top: 0.75rem;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.z-auto {
+  z-index: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.ml-14 {
+  margin-left: 3.5rem;
+}
+
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
+.mt-1\.5 {
+  margin-top: 0.375rem;
+}
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.h-44 {
+  height: 11rem;
+}
+
+.h-6 {
+  height: 1.5rem;
+}
+
+.h-9 {
+  height: 2.25rem;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.w-44 {
+  width: 11rem;
+}
+
+.w-7 {
+  width: 1.75rem;
+}
+
+.w-9 {
+  width: 2.25rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.max-w-xl {
+  max-width: 36rem;
+}
+
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+}
+
+.-translate-x-1\/2,
+.-translate-y-0 {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-y-0 {
+  --tw-translate-y: -0px;
+}
+
+.translate-x-9 {
+  --tw-translate-x: 2.25rem;
+}
+
+.translate-x-9,
+.translate-y-9 {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-9 {
+  --tw-translate-y: 2.25rem;
+}
+
+.scale-0 {
+  --tw-scale-x: 0;
+  --tw-scale-y: 0;
+}
+
+.scale-0 {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.list-disc {
+  list-style-type: disc;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.place-items-center {
+  place-items: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 0.25rem;
+}
+
+.gap-10 {
+  gap: 2.5rem;
+}
+
+.gap-16 {
+  gap: 4rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-2\.5 {
+  gap: 0.625rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-5 {
+  gap: 1.25rem;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-0 {
+  border-width: 0;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-4 {
+  border-width: 4px;
+}
+
+.border-8 {
+  border-width: 8px;
+}
+
+.border-gray-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity));
+}
+
+.border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.border-indigo-100\/50 {
+  border-color: rgba(224, 231, 255, 0.5);
+}
+
+.border-slate-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(241 245 249 / var(--tw-border-opacity));
+}
+
+.border-white {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.bg-black\/5 {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.bg-emerald-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(167 243 208 / var(--tw-bg-opacity));
+}
+
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
+.bg-indigo-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(224 231 255 / var(--tw-bg-opacity));
+}
+
+.bg-slate-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-opacity-25 {
+  --tw-bg-opacity: 0.25;
+}
+
+.bg-opacity-80 {
+  --tw-bg-opacity: 0.8;
+}
+
+.p-2\.5 {
+  padding: 0.625rem;
+}
+
+.px-1\.5 {
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.pb-0 {
+  padding-bottom: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-xs {
+  font-size: 0.70rem;
+  line-height: 1rem;
+}
+
+.text-skills {
+  font-size: 0.80rem;
+  line-height: 1.25rem;
+  color: #898c92;
+}
+
+.companyName {
+  padding-top: 5px;
+  color: #898c92;
+}
+
+.fixSkillsDiv {
+  padding-left: 1.5rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: .8rem;
+}
+
+.backgroundDiv {
+  background-color: #ffffff05;
+  backdrop-filter: blur(2.2px);
+}
+
+.skillsImg {
+  border-radius: 5px;
+  margin-top: -1.5%;
+  height: 50px;
+  width: 60px;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.text-black\/80 {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.text-blue-400 {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity));
+}
+
+.text-emerald-700 {
+  --tw-text-opacity: 1;
+  color: rgb(4 120 87 / var(--tw-text-opacity));
+}
+
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+.text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.text-indigo-400 {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
+.text-indigo-500 {
+  --tw-text-opacity: 1;
+  color: rgb(99 102 241 / var(--tw-text-opacity));
+}
+
+.text-pink-400 {
+  --tw-text-opacity: 1;
+  color: rgb(244 114 182 / var(--tw-text-opacity));
+}
+
+.text-sky-600 {
+  --tw-text-opacity: 1;
+  color: rgb(2 132 199 / var(--tw-text-opacity));
+}
+
+.text-slate-100 {
+  --tw-text-opacity: 1;
+  color: rgb(241 245 249 / var(--tw-text-opacity));
+}
+
+.text-slate-400 {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
+.text-slate-500 {
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity));
+}
+
+.text-slate-600 {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity));
+}
+
+.text-slate-700 {
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+
+.text-slate-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+    0 4px 6px -4px var(--tw-shadow-color);
+}
+
+.shadow-lg,
+.shadow-md {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+    0 2px 4px -2px var(--tw-shadow-color);
+}
+
+.outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.drop-shadow-2xl {
+  --tw-drop-shadow: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.backdrop-blur-lg {
+  --tw-backdrop-blur: blur(16px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.transition-\[gap\] {
+  transition-property: gap;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+.transition-shadow {
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+.duration-500 {
+  transition-duration: 0.5s;
+}
+
+body {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.shadow_translate-transition {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.before\:absolute:before {
+  content: var(--tw-content);
+  position: absolute;
+}
+
+.before\:-bottom-1:before {
+  content: var(--tw-content);
+  bottom: -0.25rem;
+}
+
+.before\:left-1\/2:before {
+  content: var(--tw-content);
+  left: 50%;
+}
+
+.before\:-z-10:before {
+  content: var(--tw-content);
+  z-index: -10;
+}
+
+.before\:h-2\.5:before {
+  content: var(--tw-content);
+  height: 0.625rem;
+}
+
+.before\:w-2\.5:before {
+  content: var(--tw-content);
+  width: 0.625rem;
+}
+
+.before\:-translate-x-1\/2:before {
+  --tw-translate-x: -50%;
+}
+
+.before\:-translate-x-1\/2:before,
+.before\:rotate-45:before {
+  content: var(--tw-content);
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.before\:rotate-45:before {
+  --tw-rotate: 45deg;
+}
+
+.before\:rounded-sm:before {
+  content: var(--tw-content);
+  border-radius: 0.125rem;
+}
+
+.before\:bg-gray-800:before {
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
+.before\:content-\[\'\'\]:before {
+  --tw-content: "";
+  content: var(--tw-content);
+}
+
+.hover\:gap-6:hover {
+  gap: 1.5rem;
+}
+
+.hover\:border-gray-200:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.hover\:bg-opacity-80:hover {
+  --tw-bg-opacity: 0.8;
+}
+
+.group\/tooltip:hover .group-hover\/tooltip\:-translate-y-3 {
+  --tw-translate-y: -0.75rem;
+}
+
+.group:hover .group-hover\:translate-x-7,
+.group\/tooltip:hover .group-hover\/tooltip\:-translate-y-3 {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.group:hover .group-hover\:translate-x-7 {
+  --tw-translate-x: 1.75rem;
+}
+
+.group:hover .group-hover\:translate-y-7 {
+  --tw-translate-y: 1.75rem;
+  /* }
+.group:hover .group-hover\:translate-y-7,
+.group\/live:hover .group-hover\/live\:rotate-45 {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); */
+}
+
+.rotateProjBtn {
+  transform: rotate(45deg);
+}
+
+/* .group\/live:hover .group-hover\/live\:rotate-45 {
+  --tw-rotate: 90deg;
+} */
+.group:hover .group-hover\:scale-90 {
+  --tw-scale-x: 0.9;
+  --tw-scale-y: 0.9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.group\/tooltip:hover .group-hover\/tooltip\:opacity-100 {
+  opacity: 1;
+}
+
+.dark .dark\:block {
+  display: block;
+}
+
+.dark .dark\:hidden {
+  display: none;
+}
+
+.dark .dark\:border-gray-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity));
+}
+
+.dark .dark\:border-gray-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(55 65 81 / var(--tw-border-opacity));
+}
+
+.dark .dark\:border-gray-900\/80 {
+  border-color: rgba(17, 24, 39, 0.8);
+}
+
+.dark .dark\:border-slate-200\/20 {
+  border-color: rgba(226, 232, 240, 0.2);
+}
+
+.dark .dark\:bg-emerald-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(16 185 129 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-gray-700\/50 {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+.dark .dark\:bg-gray-700\/60 {
+  background-color: rgba(55, 65, 81, 0.6);
+}
+
+.dark .dark\:bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-indigo-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-white\/5 {
+  background-color: hsla(0, 0%, 100%, 0.05);
+}
+
+.dark .dark\:bg-opacity-80 {
+  --tw-bg-opacity: 0.8;
+}
+
+.dark .dark\:text-gray-100 {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-gray-50 {
+  --tw-text-opacity: 1;
+  color: rgb(249 250 251 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-indigo-100 {
+  --tw-text-opacity: 1;
+  color: rgb(224 231 255 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-slate-100 {
+  --tw-text-opacity: 1;
+  color: rgb(241 245 249 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-slate-200 {
+  --tw-text-opacity: 1;
+  color: rgb(226 232 240 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-slate-300 {
+  --tw-text-opacity: 1;
+  color: rgb(203 213 225 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-slate-400 {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-slate-900 {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-white\/80 {
+  color: hsla(0, 0%, 100%, 0.8);
+}
+
+.dark .dark\:opacity-80 {
+  opacity: 0.8;
+}
+
+.dark .dark\:invert {
+  --tw-invert: invert(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.dark .before\:dark\:bg-white:before {
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.dark .hover\:dark\:bg-opacity-90:hover {
+  --tw-bg-opacity: 0.9;
+}
+
+@media (min-width: 640px) {
+  .sm\:flex-row {
+    flex-direction: row;
   }
+
+  .sm\:items-start {
+    align-items: flex-start;
+  }
+
+  .sm\:gap-5 {
+    gap: 1.25rem;
+  }
+
+  .sm\:gap-7 {
+    gap: 1.75rem;
+  }
+
+  .sm\:py-5 {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .sm\:pb-6 {
+    padding-bottom: 1.5rem;
+  }
+
+  .sm\:text-left {
+    text-align: left;
+  }
+
+  .sm\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .sm\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .hover\:sm\:shadow:hover {
+    --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
+      0 1px 2px -1px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.i-fa-brand\:dribbble {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cpath d='M256 8C119.252 8 8 119.252 8 256s111.252 248 248 248 248-111.252 248-248S392.748 8 256 8zm163.97 114.366c29.503 36.046 47.369 81.957 47.835 131.955-6.984-1.477-77.018-15.682-147.502-6.818-5.752-14.041-11.181-26.393-18.617-41.614 78.321-31.977 113.818-77.482 118.284-83.523zM396.421 97.87c-3.81 5.427-35.697 48.286-111.021 76.519-34.712-63.776-73.185-116.168-79.04-124.008 67.176-16.193 137.966 1.27 190.061 47.489zm-230.48-33.25c5.585 7.659 43.438 60.116 78.537 122.509-99.087 26.313-186.36 25.934-195.834 25.809C62.38 147.205 106.678 92.573 165.941 64.62zM44.17 256.323c0-2.166.043-4.322.108-6.473 9.268.19 111.92 1.513 217.706-30.146 6.064 11.868 11.857 23.915 17.174 35.949-76.599 21.575-146.194 83.527-180.531 142.306C64.794 360.405 44.17 310.73 44.17 256.323zm81.807 167.113c22.127-45.233 82.178-103.622 167.579-132.756 29.74 77.283 42.039 142.053 45.189 160.638-68.112 29.013-150.015 21.053-212.768-27.882zm248.38 8.489c-2.171-12.886-13.446-74.897-41.152-151.033 66.38-10.626 124.7 6.768 131.947 9.055-9.442 58.941-43.273 109.844-90.795 141.978z'/%3E%3C/svg%3E");
+}
+
+.i-fa-brand\:dribbble,
+.i-fa-brand\:github {
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.i-fa-brand\:github {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 496 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cpath d='M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z'/%3E%3C/svg%3E");
+}
+
+.i-fa-brand\:twitter {
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.i-fa-brand\:twitter {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cpath d='M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:arrow-up-right {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M288 384c-17.67 0-32-14.31-32-32V160H64C46.33 160 32 145.7 32 128s14.33-32 32-32h224c17.67 0 32 14.31 32 32v224C320 369.7 305.7 384 288 384z'/%3E%3Cpath class='fa-secondary' d='M256 205.3l-201.4 201.4C48.38 412.9 40.19 416 32 416s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L210.8 160H256V205.3z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:arrow-up-right,
+.i-fa-pro\:at {
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.i-fa-pro\:at {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M384 318.7c-18.1-3.825-32.01-19.18-32.01-38.43v-120.1c0-8.846-7.171-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68C274.1 148.6 257.6 144.1 240 144.1c-61.86 0-112 50.2-112 112.1s50.13 112.1 111.1 112.1c26.44 0 50.43-9.544 69.59-24.88C327.1 366.3 353.7 381.7 384 384V318.7zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z'/%3E%3Cpath class='fa-secondary' d='M495.1 256.3v20.96c.0001 46.74-29.27 90.22-74.22 103C408.8 383.9 396.1 384.1 384 384v-65.31c2.672 .5651 5.164 1.621 7.1 1.621c22.06 0 40-17.96 40-40.05l0-16.16c.0001-91.97-67.02-174.3-158.6-183.2C168.6 70.76 79.1 153.4 79.1 256.3c0 87.88 64.61 160.9 148.8 174.1c15.62 2.441 27.24 15.5 27.24 31.31c-.0001 19.52-17.42 35.04-36.71 32.07c-130.2-20.08-226.1-145.2-198.5-285.9c18.34-93.45 93.57-168.8 187-187.1C361.2-9.332 495.1 107.1 495.1 256.3z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:briefcase {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M464 96H384V48C384 22.41 361.6 0 336 0h-160C150.4 0 128 22.41 128 48V96H48C22.41 96 0 118.4 0 144V288h512V144C512 118.4 489.6 96 464 96zM336 96h-160V48h160V96z'/%3E%3Cpath class='fa-secondary' d='M320 336c0 8.844-7.156 16-16 16h-96C199.2 352 192 344.8 192 336V288H0v144C0 457.6 22.41 480 48 480h416c25.59 0 48-22.41 48-48V288h-192V336z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:briefcase,
+.i-fa-pro\:bullseye-arrow {
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.i-fa-pro\:bullseye-arrow {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M331.2 146.9L322.7 96.24C321 86.05 324.3 75.66 331.6 68.36L382.8 17.16C390.1 9.036 404.7 11.86 409 22.53L432 80L489.5 102.1C500.1 107.3 502.1 121 494.8 129.2L443.6 180.4C436.3 187.7 425.9 190.1 415.8 189.3L365.1 180.8L272.1 272.1C263.6 282.3 248.4 282.3 239 272.1C229.7 263.6 229.7 248.4 239 239L331.2 146.9z'/%3E%3Cpath class='fa-secondary' d='M366.4 213.5L395 218.3C398.3 230.3 400 242.9 400 256C400 335.5 335.5 400 256 400C176.5 400 112 335.5 112 256C112 176.5 176.5 112 256 112C269.1 112 281.7 113.7 293.7 116.1L298.5 145.6L267.3 176.8C263.6 176.3 259.8 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336C300.2 336 336 300.2 336 255.1C336 252.2 335.7 248.4 335.2 244.7L366.4 213.5zM497.7 171.5C506.1 197.1 512 226.4 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C285.6 0 314 5.024 340.5 14.27L288.1 66.67C277.6 64.91 266.9 64 256 64C149.1 64 64 149.1 64 256C64 362 149.1 448 256 448C362 448 448 362 448 256C448 245.1 447.1 234.4 445.3 223.9L497.7 171.5z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:copy {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M192 352V128h-144c-26.51 0-48 21.49-48 48v288c0 26.51 21.49 48 48 48h192c26.51 0 48-21.49 48-48L288 416h-32C220.7 416 192 387.3 192 352zM416 0v96h96L416 0z'/%3E%3Cpath class='fa-secondary' d='M512 96v240c0 26.51-21.49 48-48 48h-192c-26.51 0-48-21.49-48-48v-288c0-26.51 21.49-48 48-48H416v96H512z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:copy,
+.i-fa-pro\:envelope {
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.i-fa-pro\:envelope {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464z'/%3E%3Cpath class='fa-secondary' d='M19.2 150.4L236.8 313.6C248.2 322.1 263.8 322.1 275.2 313.6L492.8 150.4C504.9 141.3 512 127.1 512 112V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V112C0 127.1 7.113 141.3 19.2 150.4z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:file-user {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M256 0v128h128L256 0zM192 320c35.35 0 64-28.66 64-64s-28.65-64-64-64C156.7 192 128 220.7 128 256S156.7 320 192 320zM224 352H160c-44.18 0-80 35.81-80 80C80 440.8 87.16 448 96 448h192c8.836 0 16-7.164 16-16C304 387.8 268.2 352 224 352z'/%3E%3Cpath class='fa-secondary' d='M256 128V0H48C21.49 0 0 21.49 0 48v416C0 490.5 21.49 512 48 512h288c26.51 0 48-21.49 48-48V128H256zM192 192c35.35 0 64 28.66 64 64s-28.65 64-64 64c-35.34 0-64-28.66-64-64S156.7 192 192 192zM288 448H96c-8.836 0-16-7.164-16-16C80 387.8 115.8 352 160 352h64c44.18 0 80 35.81 80 80C304 440.8 296.8 448 288 448z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:file-user {
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.i-fa-pro\:moon {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:moon,
+.i-fa-pro\:paper-plane-top {
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.i-fa-pro\:paper-plane-top {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M383.1 255.1L77.03 286.4V225.6L383.1 255.1z'/%3E%3Cpath class='fa-secondary' d='M511.1 255.1c0 12.8-7.625 24.38-19.41 29.41L44.6 477.4c-4.062 1.75-8.344 2.594-12.59 2.594c-8.625 0-17.09-3.5-23.28-10.05c-9.219-9.766-11.34-24.25-5.344-36.27l73.66-147.3l306.1-30.37L77.03 225.6l-73.66-147.3C-2.623 66.3-.4982 51.81 8.72 42.05c9.25-9.766 23.56-12.75 35.87-7.453L492.6 226.6C504.4 231.6 511.1 243.2 511.1 255.1z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:star-half {
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.i-fa-pro\:star-half {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M288 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.995 275.8 .0131 287.1-.0391L288 439.8zM433.2 512C432.1 512.1 431 512.1 429.9 512H433.2z'/%3E%3Cpath class='fa-secondary' d='M146.3 512C145.3 512.1 144.2 512.1 143.1 512H146.3zM288 439.8V-.0387L288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.1 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L288 439.8z'/%3E%3C/svg%3E");
+}
+
+.i-fa-pro\:sun {
+  --un-icon: url("data:image/svg+xml;utf8,%3Csvg width='1em' height='1em' fill='currentColor' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cdefs%3E%3Cstyle%3E.fa-secondary{opacity:.4}%3C/style%3E%3C/defs%3E%3Cpath class='fa-primary' d='M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1z'/%3E%3Cpath class='fa-secondary' d='M509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z'/%3E%3C/svg%3E");
+  mask: var(--un-icon) no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask: var(--un-icon) no-repeat;
+  -webkit-mask-size: 100% 100%;
+  background-color: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+/*! CSS Used fontfaces */
+@font-face {
+  font-family: Jakarta;
+  font-display: swap;
+  src: url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-ExtraBold.1d25d33c.woff2) format("woff2"),
+    url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-ExtraBold.ba877e82.woff) format("woff");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: Jakarta;
+  font-display: swap;
+  src: url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-Bold.8f84e601.woff2) format("woff2"),
+    url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-Bold.c0641c09.woff) format("woff");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Jakarta;
+  font-display: swap;
+  src: url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-SemiBold.1ae95f30.woff2) format("woff2"),
+    url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-SemiBold.69b0fcef.woff) format("woff");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: Jakarta;
+  font-display: swap;
+  src: url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-Medium.86b620a3.woff2) format("woff2"),
+    url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-Medium.4ebdb715.woff) format("woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Jakarta;
+  font-display: swap;
+  src: url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-Regular.99a968f7.woff2) format("woff2"),
+    url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-Regular.8acb6578.woff) format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Jakarta;
+  font-display: swap;
+  src: url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-Light.e91cc41b.woff2) format("woff2"),
+    url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-Light.feee670a.woff) format("woff");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Jakarta;
+  font-display: swap;
+  src: url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-ExtraLight.f3d71744.woff2) format("woff2"),
+    url(https://eduardorl.vercel.app/_next/static/media/PlusJakartaSans-ExtraLight.522494ba.woff) format("woff");
+  font-weight: 200;
+}
+
+
+
+body::before {
+  --size: 45px;
+  --line: color-mix(in lch, canvasText, transparent 70%);
+  content: '';
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background: linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size),
+    linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% / var(--size) var(--size);
+  mask: linear-gradient(-20deg, transparent 50%, white);
+  top: 0;
+  transform-style: flat;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+
+
+
+.timeline {
+  margin: auto;
+  /* padding: 0 1.5em; */
+  width: 100%;
+  /* max-width: 36em; */
+  font-family: "Space Grotesk", sans-serif;
+
+}
+
+.timeline2 {
+  margin: auto;
+  width: 100%;
+  margin-bottom: -2.25em;
+}
+
+.linkHover:hover {
+  color: rgb(76, 83, 95);
+  font-weight: 700;
+  transition: .2s;
+  border: none;
+  outline: none;
+}
+
+.cursorDefault {
+  cursor: default;
+}
+
+.timeline__arrow {
+  background-color: transparent;
+  border-radius: 0.25em;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-inline-end: 0.25em;
+  outline: transparent;
+  width: 2em;
+  height: 2em;
+  transition:
+    background-color calc(var(--trans-dur) / 2) linear,
+    color var(--trans-dur);
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.timeline-none {
+  cursor: default;
+  flex-shrink: 0;
+  margin-inline-end: 0.25em;
+  width: 2em;
+  height: 2em;
+}
+
+.timeline__arrow:focus-visible,
+.timeline__arrow:hover {
+  background-color: hsla(204, 2%, 50%, 0.103);
+}
+
+.timeline__arrow-icon {
+  color: hsl(0, 0%, 70%);
+  display: block;
+  pointer-events: none;
+  transform: rotate(-90deg);
+  transition: transform var(--trans-dur) var(--trans-timing);
+  width: 100%;
+  height: auto;
+}
+
+.timelineMainHeading {
+  color: rgb(76, 83, 95);
+
+}
+
+.timeline__date {
+  font-size: 0.833em;
+  line-height: 2.4;
+}
+
+.timeline__dot {
+  background-color: hsl(0, 0%, 50%);
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  margin: 0.625em 0;
+  margin-inline-end: 1em;
+  position: relative;
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.timeline__star {
+  background-color: rgb(76, 83, 95);
+  border-radius: 25%;
+  display: inline-block;
+  flex-shrink: 0;
+  margin: 0.625em 0;
+  margin-inline-end: 1em;
+  position: relative;
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.timeline__item {
+  position: relative;
+  padding-bottom: 2.25em;
+}
+
+.timeline__item:not(:nth-last-child(10)):before {
+  background-color: hsla(207, 4%, 52%, 0.37);
+  content: "";
+  display: block;
+  position: absolute;
+  top: 1em;
+  left: 2.625em;
+  width: 0.125em;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+[dir="rtl"] .timeline__arrow-icon {
+  transform: rotate(90deg);
+}
+
+[dir="rtl"] .timeline__item:not(:last-child):before {
+  right: 2.625em;
+  left: auto;
+  transform: translateX(50%);
+}
+
+.timeline__item-header {
+  display: flex;
+}
+
+.timeline__item-body {
+  border-radius: 0.375em;
+  overflow: hidden;
+  margin-top: 0.5em;
+  margin-inline-start: 4em;
+  height: 0;
+}
+
+.timeline__item-body-content {
+  background-color: hsla(206, 10%, 50%, 0.164);
+  opacity: 0;
+  padding: 0.5em 0.75em;
+  visibility: hidden;
+  transition:
+    opacity var(--trans-dur) var(--trans-timing),
+    visibility var(--trans-dur) steps(1, end);
+}
+
+.timeline__meta {
+  width: 100%;
+}
+
+.timeline__title {
+  font-size: 1.5em;
+  line-height: 1.333;
+}
+
+.mainHeadings {
+  color: rgb(58, 70, 85);
+}
+
+.skillsColor {
+  color: rgb(58, 62, 68);
+}
+
+.logoNavbar {
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.logoMain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0;
+  height: 0;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.logoMain2 {
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: initial;
+  height: initial;
+  background: none;
+  opacity: 1;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.logoMainProfile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0;
+  height: 0;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.resume {
+  margin-top: 8px;
+}
+
+.profile__social {
+  display: flex;
+  justify-content: center;
+  column-gap: .80rem;
+}
+
+.profile__social-link {
+  font-size: 1.25rem;
+  color: rgb(71 85 105 / 1);
+}
+
+.instagramcolor:hover {
+  color: #E1306C;
+  transition: all .2s;
+}
+
+.goalOutside {
+  background-color: rgb(144, 255, 203);
+  color: #40b10ce7;
+}
+
+.CV {
+  background-color: #ade8f4;
+  color: #00b4d8;
+}
+
+.emailInput {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.emailCopy {
+  background-color: rgba(0, 0, 0, 0.103);
+  color: #00b4d8ce;
+}
+
+.marksheetBtn {
+  background-color: hsla(206, 10%, 50%, 0.384);
+  color: #696969;
+  transition: all .2s;
+}
+
+.marksheetBtn:hover {
+  background-color: hsla(206, 10%, 50%, 0.185);
+  color: #818181;
+}
+
+.timeline__item-body--expanded {
+  height: auto;
+}
+
+.timeline__item-body--expanded .timeline__item-body-content {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: var(--trans-dur), 0s;
+}
+
+.timeline__arrow[aria-expanded="true"] .timeline__arrow-icon {
+  transform: rotate(0);
+}
+
+.jobProfiles {
+  color: rgb(71 85 105 / 1);
+}
+
+:root {
+  --hue: 223;
+  --bg: hsl(var(--hue), 10%, 90%);
+  --fg: hsl(var(--hue), 10%, 10%);
+  --primary: hsl(var(--hue), 90%, 50%);
+  --trans-dur: 0.3s;
+  --trans-timing: cubic-bezier(0.65, 0, 0.35, 1);
+  font-size: calc(16px + (24 - 16) * (100vw - 320px) / (2560 - 320));
+}
+
+a {
+  color: var(--primary);
+  transition: color var(--trans-dur);
+}
+
+body,
+button {
+  color: var(--fg);
+  font-family: 1em/1.5 "Space Grotesk", sans-serif;
+
+}
+
+.btn {
+  background-color: hsla(204, 3%, 34%, 0.774);
+  border-radius: 0.25em;
+  color: hsl(0, 0%, 100%);
+  cursor: pointer;
+  padding: 0.375em 0.75em;
+  transition:
+    background-color calc(var(--trans-dur) / 2) linear,
+    color var(--trans-dur);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover {
+  background-color: hsla(206, 10%, 50%, 0.164);
+  color: #7b7d80;
+}
+
+.btn-group {
+  display: flex;
+  gap: 0.375em;
+  margin-bottom: 1.5em;
+}
+
+
+
+
+:root {
+  --hue: 207;
+  --sat: 90%;
+  --lig: 61%;
+  --first-color: #ecbf94;
+  --first-color-alt: hsl(var(--hue), var(--sat), 57%);
+  --title-color: hsl(var(--hue), 12%, 15%);
+  --text-color: hsl(var(--hue), 12%, 45%);
+  --text-color-light: hsl(var(--hue), 8%, 75%);
+  --text-color-lighten: hsl(var(--hue), 8%, 92%);
+  --body-color: hsl(var(--hue), 100%, 99%);
+  --containerr-color: #fff;
+
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .910rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+}
+
+@media screen and (min-width: 968px) {
+  :root {
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: .910rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+
+
+h1,
+h2,
+h3 {
+  color: var(--title-color);
+  font-weight: 600;
+}
+
+ul {
+  list-style: none;
+}
+
+.containerr {
+  max-width: 968px;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.gridd {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.skills__content {
+  row-gap: 2rem;
+}
+
+.skills__title {
+  font-size: var(--h3-font-size);
+  text-align: center;
+  margin-top: .5rem;
+  margin-bottom: 1.5rem;
+}
+
+.skills__title__others {
+  font-size: var(--h3-font-size);
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.skills__box {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
+}
+
+.skills__group {
+  display: grid;
+  align-content: flex-start;
+  row-gap: 1rem;
+}
+
+.skills__data {
+  display: flex;
+  column-gap: .6rem;
+}
+
+.skills__data .skills_icon {
+  font-size: 1rem;
+  color: var(--first-color);
+}
+
+.skills__name {
+  font-size: var(--normal-font-size);
+  font-weight: 600;
+}
+
+.skills__level {
+  font-size: var(--smaller-font-size);
+}
+
+
+
+
+/* For small devices */
+
+@media screen and (max-width: 320px) {
+  .containerr {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .skills__box {
+    column-gap: 1rem;
+  }
+}
+
+@media screen and (min-width: 776px) {
+  .skills__content {
+    grid-template-columns: repeat(2, 332px);
+  }
+
+  .skills__content {
+    justify-content: center;
+    column-gap: 4rem;
+  }
+}
+
+
+/* For large devices */
+
+@media screen and (min-width: 992px) {
+  .containerr {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .skills__title {
+    font-size: var(--normal-font-size);
+    /* margin-bottom: 2.5rem; */
+  }
+
+  .skills__title__others {
+    font-size: var(--normal-font-size);
+    /* margin-bottom: 2.5rem; */
+  }
+}
+
+
+:root {
+  --clr_dark: #0c0e02;
+  --clr_light: #c6ff25;
+}
+
+.headerMarquee {
+  /* height: 100vh; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.marquee {
+  overflow: hidden;
+  display: flex;
+  background-color: var(--clr_light);
+  color: var(--clr_dark);
+
+}
+
+.marquee h1 {
+  font-size: 6rem;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
