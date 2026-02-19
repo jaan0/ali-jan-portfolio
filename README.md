@@ -72,7 +72,19 @@ npm run test:webhook
 - Auth:
   - `Authorization: Bearer <CRON_SECRET>`
   - or `x-cron-secret: <CRON_SECRET>`
-- Vercel cron config is in `vercel.json` and runs every 10 minutes.
+- Use external scheduler (recommended on Vercel Hobby): `cron-job.org`
+- Suggested frequency: every `2` minutes (or `1` minute if your cron-job.org plan allows)
+
+### cron-job.org Setup
+
+1. Create new job:
+   - URL: `https://YOUR_DOMAIN/api/cron/reminders`
+   - Method: `POST`
+2. Add header:
+   - `Authorization: Bearer YOUR_CRON_SECRET`
+3. Set schedule:
+   - every `2` minutes
+4. Enable and save.
 
 Manual trigger example:
 
