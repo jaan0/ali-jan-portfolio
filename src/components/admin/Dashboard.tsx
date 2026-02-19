@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react';
-import { User, Experience, Education, Skill, Project } from '@prisma/client';
+import { useState, useRef, useEffect, FormEvent } from 'react';
+import { User, Experience, Education, Skill, Project, Meeting, MeetingBlock } from '@prisma/client';
 import {
     updateProfile,
     addExperience, deleteExperience, updateExperience,
@@ -9,7 +9,7 @@ import {
     addSkill, deleteSkill, updateSkill,
     addProject, updateProject, deleteProject
 } from '@/app/actions';
-import { Trash2, Plus, Save, User as UserIcon, Briefcase, GraduationCap, Award, Pencil, X, FolderKanban } from 'lucide-react';
+import { Trash2, Plus, Save, User as UserIcon, Briefcase, GraduationCap, Award, Pencil, X, FolderKanban, CalendarCheck2, RefreshCw } from 'lucide-react';
 import ImageUpload from './ImageUpload';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -19,11 +19,12 @@ interface DashboardProps {
         educations: Education[];
         skills: Skill[];
         projects: Project[];
+        meetings?: Meeting[];
     }
 }
 
 export default function Dashboard({ user }: DashboardProps) {
-    const [activeTab, setActiveTab] = useState<'profile' | 'experience' | 'education' | 'skills' | 'projects'>('profile');
+    const [activeTab, setActiveTab] = useState<'profile' | 'experience' | 'education' | 'skills' | 'projects' | 'meetings'>('profile');
     const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl || '');
     const [cvUrl, setCvUrl] = useState(user.cvUrl || '');
     const [skillImageUrl, setSkillImageUrl] = useState('');
@@ -39,11 +40,140 @@ export default function Dashboard({ user }: DashboardProps) {
     const [editingEduId, setEditingEduId] = useState<string | null>(null);
     const [editingSkillId, setEditingSkillId] = useState<string | null>(null);
     const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
+    const [meetings, setMeetings] = useState<Meeting[]>(user.meetings || []);
+    const [loadingMeetings, setLoadingMeetings] = useState(false);
+    const [cancelingBookingId, setCancelingBookingId] = useState<string | null>(null);
+    const [blocks, setBlocks] = useState<MeetingBlock[]>([]);
+    const [loadingBlocks, setLoadingBlocks] = useState(false);
+    const [startBlockAt, setStartBlockAt] = useState('');
+    const [endBlockAt, setEndBlockAt] = useState('');
+    const [blockNote, setBlockNote] = useState('');
 
     const expFormRef = useRef<HTMLFormElement>(null);
     const eduFormRef = useRef<HTMLFormElement>(null);
     const skillFormRef = useRef<HTMLFormElement>(null);
     const projectFormRef = useRef<HTMLFormElement>(null);
+
+    async function loadMeetings() {
+        setLoadingMeetings(true);
+        try {
+            const response = await fetch('/api/admin/meetings');
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error((data?.error as string) || 'Failed to load meetings');
+            }
+
+            setMeetings((data?.meetings as Meeting[]) || []);
+            if (typeof data?.error === 'string' && data.error) {
+                toast.error(data.error);
+            }
+        } catch (error) {
+            toast.error((error as Error).message || 'Failed to load meetings');
+        } finally {
+            setLoadingMeetings(false);
+        }
+    }
+
+    async function loadBlocks() {
+        setLoadingBlocks(true);
+        try {
+            const response = await fetch('/api/admin/meeting-blocks');
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error((data?.error as string) || 'Failed to load blocked slots');
+            }
+
+            setBlocks((data?.blocks as MeetingBlock[]) || []);
+        } catch (error) {
+            toast.error((error as Error).message || 'Failed to load blocked slots');
+        } finally {
+            setLoadingBlocks(false);
+        }
+    }
+
+    async function addBlockWindow(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        if (!startBlockAt || !endBlockAt) {
+            toast.error('Start and end time are required');
+            return;
+        }
+
+        const startIso = new Date(startBlockAt).toISOString();
+        const endIso = new Date(endBlockAt).toISOString();
+
+        try {
+            const response = await fetch('/api/admin/meeting-blocks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    startTime: startIso,
+                    endTime: endIso,
+                    note: blockNote
+                })
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error((data?.error as string) || 'Failed to create blocked slot');
+            }
+
+            toast.success('Blocked slot added');
+            setStartBlockAt('');
+            setEndBlockAt('');
+            setBlockNote('');
+            await loadBlocks();
+        } catch (error) {
+            toast.error((error as Error).message || 'Failed to create blocked slot');
+        }
+    }
+
+    async function deleteBlockWindow(blockId: string) {
+        try {
+            const response = await fetch(`/api/admin/meeting-blocks/${encodeURIComponent(blockId)}`, {
+                method: 'DELETE'
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error((data?.error as string) || 'Failed to delete blocked slot');
+            }
+
+            toast.success('Blocked slot removed');
+            await loadBlocks();
+        } catch (error) {
+            toast.error((error as Error).message || 'Failed to delete blocked slot');
+        }
+    }
+
+    async function cancelMeeting(bookingId: string) {
+        setCancelingBookingId(bookingId);
+        try {
+            const response = await fetch(`/api/forgecal/bookings/${encodeURIComponent(bookingId)}/cancel`, {
+                method: 'POST'
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error((data?.error as string) || 'Failed to cancel meeting');
+            }
+
+            toast.success('Meeting canceled');
+            await loadMeetings();
+        } catch (error) {
+            toast.error((error as Error).message || 'Failed to cancel meeting');
+        } finally {
+            setCancelingBookingId(null);
+        }
+    }
+
+    useEffect(() => {
+        if (activeTab === 'meetings') {
+            loadMeetings();
+            loadBlocks();
+        }
+    }, [activeTab]);
 
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -84,6 +214,13 @@ export default function Dashboard({ user }: DashboardProps) {
                         }`}
                 >
                     <FolderKanban className="w-4 h-4" /> Projects
+                </button>
+                <button
+                    onClick={() => setActiveTab('meetings')}
+                    className={`flex-1 py-4 px-6 text-sm font-medium flex items-center justify-center gap-2 border-b-2 transition-colors ${activeTab === 'meetings' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+                        }`}
+                >
+                    <CalendarCheck2 className="w-4 h-4" /> Meetings
                 </button>
             </div>
 
@@ -566,6 +703,153 @@ export default function Dashboard({ user }: DashboardProps) {
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
                                             </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === 'meetings' && (
+                    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
+                        <div className="flex items-center justify-between gap-3">
+                            <div>
+                                <h3 className="text-lg font-semibold text-gray-800">Requested & Booked Meetings</h3>
+                                <p className="text-sm text-gray-500">
+                                    Configure blocked windows below. Availability and booking enforce them automatically.
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={loadMeetings}
+                                disabled={loadingMeetings}
+                                className="inline-flex items-center gap-2 bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-50 disabled:opacity-60"
+                            >
+                                <RefreshCw className={`w-4 h-4 ${loadingMeetings ? 'animate-spin' : ''}`} />
+                                Refresh
+                            </button>
+                        </div>
+
+                        <div className="rounded-lg border border-gray-200 p-4 bg-gray-50 space-y-4">
+                            <h4 className="font-medium text-gray-800">Blocked Slots</h4>
+                            <form onSubmit={addBlockWindow} className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                                <input
+                                    type="datetime-local"
+                                    value={startBlockAt}
+                                    onChange={(event) => setStartBlockAt(event.target.value)}
+                                    className="rounded-md border-gray-300 border p-2 text-sm"
+                                    required
+                                />
+                                <input
+                                    type="datetime-local"
+                                    value={endBlockAt}
+                                    onChange={(event) => setEndBlockAt(event.target.value)}
+                                    className="rounded-md border-gray-300 border p-2 text-sm"
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    value={blockNote}
+                                    onChange={(event) => setBlockNote(event.target.value)}
+                                    placeholder="Reason (optional)"
+                                    className="rounded-md border-gray-300 border p-2 text-sm"
+                                />
+                                <button
+                                    type="submit"
+                                    className="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm hover:bg-indigo-700"
+                                >
+                                    Add Block
+                                </button>
+                            </form>
+
+                            <div className="space-y-2">
+                                {loadingBlocks && (
+                                    <p className="text-sm text-gray-500">Loading blocked slots...</p>
+                                )}
+                                {!loadingBlocks && blocks.length === 0 && (
+                                    <p className="text-sm text-gray-500">No blocked slots configured.</p>
+                                )}
+                                {blocks.map((block) => (
+                                    <div
+                                        key={block.id}
+                                        className="flex flex-wrap items-center justify-between gap-2 rounded border border-gray-200 bg-white px-3 py-2"
+                                    >
+                                        <div className="text-sm text-gray-700">
+                                            <span className="font-medium">
+                                                {new Date(block.startTime).toLocaleString()}
+                                            </span>
+                                            {' '}to{' '}
+                                            <span className="font-medium">
+                                                {new Date(block.endTime).toLocaleString()}
+                                            </span>
+                                            {block.note ? ` (${block.note})` : ''}
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => deleteBlockWindow(block.id)}
+                                            className="text-sm text-red-600 hover:text-red-700 underline"
+                                        >
+                                            Remove
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="space-y-3">
+                            {meetings.length === 0 && (
+                                <div className="rounded-lg border border-dashed border-gray-300 p-6 text-sm text-gray-500">
+                                    No meetings found yet.
+                                </div>
+                            )}
+
+                            {meetings.map((meeting) => (
+                                <div key={meeting.id} className="rounded-lg border border-gray-200 p-4 bg-white">
+                                    <div className="flex flex-wrap items-center justify-between gap-3">
+                                        <div>
+                                            <p className="font-medium text-gray-800">{meeting.guestName || 'Guest'}</p>
+                                            <p className="text-sm text-gray-500">{meeting.guestEmail || '-'}</p>
+                                        </div>
+                                        <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${meeting.status === 'booked' ? 'bg-emerald-100 text-emerald-700' :
+                                                meeting.status === 'requested' ? 'bg-amber-100 text-amber-700' :
+                                                    'bg-gray-200 text-gray-700'
+                                            }`}>
+                                            {meeting.status.toUpperCase()}
+                                        </span>
+                                    </div>
+                                    <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600">
+                                        <p>
+                                            <span className="font-medium text-gray-700">Start:</span>{' '}
+                                            {meeting.startTime ? new Date(meeting.startTime).toLocaleString() : '-'}
+                                        </p>
+                                        <p>
+                                            <span className="font-medium text-gray-700">Timezone:</span> {meeting.timezone || '-'}
+                                        </p>
+                                        <p className="md:col-span-2 break-all">
+                                            <span className="font-medium text-gray-700">Booking ID:</span> {meeting.forgeCalBookingId}
+                                        </p>
+                                        {meeting.meetingUrl && (
+                                            <a
+                                                href={meeting.meetingUrl}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="md:col-span-2 text-indigo-600 hover:underline break-all"
+                                            >
+                                                {meeting.meetingUrl}
+                                            </a>
+                                        )}
+                                    </div>
+                                    {(meeting.status === 'requested' || meeting.status === 'booked') && (
+                                        <div className="mt-4">
+                                            <button
+                                                type="button"
+                                                onClick={() => cancelMeeting(meeting.forgeCalBookingId)}
+                                                disabled={cancelingBookingId === meeting.forgeCalBookingId}
+                                                className="text-sm text-red-600 hover:text-red-700 underline disabled:opacity-50"
+                                            >
+                                                {cancelingBookingId === meeting.forgeCalBookingId ? 'Canceling...' : 'Cancel meeting'}
+                                            </button>
                                         </div>
                                     )}
                                 </div>

@@ -1,6 +1,8 @@
 import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { getForgeCalServerConfig } from "@/lib/forgecal";
+import prisma from "@/lib/prisma";
+import { mapWebhookEventToStatus, normalizeBookingPayload } from "@/lib/forgecal-booking";
 
 function verifySignature(rawBody: string, signature: string, secret: string) {
   const digest = crypto.createHmac("sha256", secret).update(rawBody).digest("hex");
@@ -47,6 +49,48 @@ export async function POST(request: Request) {
   }
 
   console.log("[ForgeCal webhook]", { event, payload });
+
+  const status = mapWebhookEventToStatus(event);
+  const normalized = normalizeBookingPayload(payload);
+
+  if (status && normalized?.bookingId) {
+    const adminUser = await prisma.user.findFirst({
+      where: { email: "admin@example.com" },
+      select: { id: true },
+    });
+
+    if (adminUser?.id) {
+      try {
+        await prisma.meeting.upsert({
+          where: { forgeCalBookingId: normalized.bookingId },
+          create: {
+            userId: adminUser.id,
+            forgeCalBookingId: normalized.bookingId,
+            guestName: normalized.guestName || null,
+            guestEmail: normalized.guestEmail || null,
+            startTime: normalized.startTime ? new Date(normalized.startTime) : null,
+            timezone: normalized.timezone || null,
+            guestMessage: normalized.guestMessage || null,
+            meetingUrl: normalized.meetingUrl || null,
+            status,
+            sourcePayload: payload as object,
+          },
+          update: {
+            guestName: normalized.guestName || undefined,
+            guestEmail: normalized.guestEmail || undefined,
+            startTime: normalized.startTime ? new Date(normalized.startTime) : undefined,
+            timezone: normalized.timezone || undefined,
+            guestMessage: normalized.guestMessage || undefined,
+            meetingUrl: normalized.meetingUrl || undefined,
+            status,
+            sourcePayload: payload as object,
+          },
+        });
+      } catch (syncError) {
+        console.error("[ForgeCal meeting sync] failed to process webhook", syncError);
+      }
+    }
+  }
 
   return NextResponse.json({ ok: true });
 }

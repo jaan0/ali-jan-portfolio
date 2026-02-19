@@ -145,6 +145,12 @@ export default function ForgeCalScheduler({ slug }: { slug: string }) {
         if (!cancelled) {
           setSlots(normalizedSlots);
           setSlot(normalizedSlots[0]?.value || "");
+          if (typeof data?.movedToDate === "string" && data.movedToDate) {
+            setStatus(
+              `Selected date has no open slots after admin block rules. Showing availability for ${data.movedToDate}.`
+            );
+            setDate(data.movedToDate);
+          }
         }
       } catch (error) {
         if (!cancelled) {
@@ -345,4 +351,3 @@ export default function ForgeCalScheduler({ slug }: { slug: string }) {
     </section>
   );
 }
-
