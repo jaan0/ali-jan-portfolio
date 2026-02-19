@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Linkedin, FileText, Target, ExternalLink, FolderKanban } from "lucide-react";
+import ForgeCalScheduler from "@/components/ForgeCalScheduler";
 
 export const dynamic = 'force-dynamic';
 
@@ -246,6 +247,8 @@ export default async function Home() {
             </div>
           </section>
         )}
+
+        <ForgeCalScheduler slug={user.forgeCalEventSlug || "strategy-call"} />
 
         <footer className="text-center text-slate-400 text-sm py-10">
           <p>© {new Date().getFullYear()} {user.name}. All rights reserved.</p>

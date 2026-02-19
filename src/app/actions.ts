@@ -39,11 +39,26 @@ export async function updateProfile(formData: FormData) {
     const cvUrl = formData.get('cvUrl') as string;
     const linkedinUrl = formData.get('linkedinUrl') as string;
     const githubUrl = formData.get('githubUrl') as string;
+    const forgeCalApiKey = formData.get('forgeCalApiKey') as string;
+    const forgeCalEventSlug = formData.get('forgeCalEventSlug') as string;
+    const forgeCalWebhookSecret = formData.get('forgeCalWebhookSecret') as string;
+    const forgeCalBaseUrl = formData.get('forgeCalBaseUrl') as string;
 
     await prisma.user.updateMany({
         where: { email: 'admin@example.com' }, // Target the admin user
         data: {
-            name, title, subTitle, about, avatarUrl, cvUrl, linkedinUrl, githubUrl
+            name,
+            title,
+            subTitle,
+            about,
+            avatarUrl,
+            cvUrl,
+            linkedinUrl,
+            githubUrl,
+            forgeCalApiKey,
+            forgeCalEventSlug,
+            forgeCalWebhookSecret,
+            forgeCalBaseUrl
         }
     });
 

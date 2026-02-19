@@ -9,6 +9,10 @@ export interface User {
     cvUrl?: string | null;
     linkedinUrl?: string | null;
     githubUrl?: string | null;
+    forgeCalApiKey?: string | null;
+    forgeCalEventSlug?: string | null;
+    forgeCalWebhookSecret?: string | null;
+    forgeCalBaseUrl?: string | null;
     experiences: Experience[];
     educations: Education[];
     skills: Skill[];

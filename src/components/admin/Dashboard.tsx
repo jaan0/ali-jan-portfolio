@@ -144,6 +144,50 @@ export default function Dashboard({ user }: DashboardProps) {
                             </div>
                         </div>
 
+                        <div className="pt-4 border-t border-gray-100">
+                            <h3 className="text-sm font-semibold text-gray-800 mb-3">ForgeCal Integration</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">ForgeCal API Key</label>
+                                    <input
+                                        name="forgeCalApiKey"
+                                        type="password"
+                                        defaultValue={user.forgeCalApiKey || ''}
+                                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2"
+                                        placeholder="paste your x-api-key value"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Event Slug</label>
+                                    <input
+                                        name="forgeCalEventSlug"
+                                        defaultValue={user.forgeCalEventSlug || 'strategy-call'}
+                                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2"
+                                        placeholder="strategy-call"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Base URL</label>
+                                    <input
+                                        name="forgeCalBaseUrl"
+                                        defaultValue={user.forgeCalBaseUrl || 'https://forge-cal.vercel.app'}
+                                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2"
+                                        placeholder="https://forge-cal.vercel.app"
+                                    />
+                                </div>
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Webhook Secret</label>
+                                    <input
+                                        name="forgeCalWebhookSecret"
+                                        type="password"
+                                        defaultValue={user.forgeCalWebhookSecret || ''}
+                                        className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2"
+                                        placeholder="random secret used to verify x-forgecal-signature"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="flex justify-end pt-4 border-t border-gray-100">
                             <button type="submit" className="flex items-center gap-2 bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 hover:shadow-lg transition font-medium">
                                 <Save className="w-4 h-4" /> Save Profile
