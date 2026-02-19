@@ -1,19 +1,19 @@
-import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { getForgeCalServerConfig } from "@/lib/forgecal";
 import prisma from "@/lib/prisma";
 import { mapWebhookEventToStatus, normalizeBookingPayload } from "@/lib/forgecal-booking";
+import {
+  getWebhookDeliveryHash,
+  parseForgeCalEvent,
+  parseWebhookPayload,
+  verifyForgeCalSignature,
+} from "@/lib/forgecal-webhook";
+import { runForgeCalWorkflows } from "@/lib/forgecal-workflows";
 
-function verifySignature(rawBody: string, signature: string, secret: string) {
-  const digest = crypto.createHmac("sha256", secret).update(rawBody).digest("hex");
-  const expected = Buffer.from(digest, "utf8");
-  const received = Buffer.from(signature, "utf8");
+export const runtime = "nodejs";
 
-  if (expected.length !== received.length) {
-    return false;
-  }
-
-  return crypto.timingSafeEqual(expected, received);
+function logWebhook(input: Record<string, unknown>) {
+  console.log(JSON.stringify({ source: "forgecal-webhook", ...input }));
 }
 
 export async function POST(request: Request) {
@@ -35,62 +35,114 @@ export async function POST(request: Request) {
   }
 
   const rawBody = await request.text();
-  const isValid = verifySignature(rawBody, signature, secret);
+  const isValid = verifyForgeCalSignature(rawBody, signature, secret);
 
   if (!isValid) {
+    logWebhook({ event, result: "invalid_signature" });
     return NextResponse.json({ error: "Invalid webhook signature." }, { status: 401 });
   }
 
-  let payload: unknown = null;
-  try {
-    payload = JSON.parse(rawBody);
-  } catch {
-    payload = rawBody;
+  const parsedEvent = parseForgeCalEvent(event);
+  if (!parsedEvent) {
+    logWebhook({ event, result: "unsupported_event" });
+    return NextResponse.json({ ok: true, ignored: true }, { status: 200 });
   }
 
-  console.log("[ForgeCal webhook]", { event, payload });
-
-  const status = mapWebhookEventToStatus(event);
+  const payload = parseWebhookPayload(rawBody);
   const normalized = normalizeBookingPayload(payload);
+  const bookingId = normalized?.bookingId || "unknown";
+  const deliveryHash = getWebhookDeliveryHash(rawBody);
 
-  if (status && normalized?.bookingId) {
-    const adminUser = await prisma.user.findFirst({
-      where: { email: "admin@example.com" },
-      select: { id: true },
+  logWebhook({ event: parsedEvent, bookingId, result: "received" });
+
+  if (!normalized?.bookingId) {
+    logWebhook({ event: parsedEvent, bookingId, result: "missing_booking_id" });
+    return NextResponse.json({ ok: true, ignored: true }, { status: 200 });
+  }
+
+  const adminUser = await prisma.user.findFirst({
+    where: { email: "admin@example.com" },
+    select: { id: true },
+  });
+
+  if (!adminUser?.id) {
+    logWebhook({ event: parsedEvent, bookingId, result: "admin_user_missing" });
+    return NextResponse.json({ ok: true, ignored: true }, { status: 200 });
+  }
+
+  try {
+    await prisma.webhookDelivery.create({
+      data: {
+        userId: adminUser.id,
+        eventName: parsedEvent,
+        bookingId: normalized.bookingId,
+        deliveryHash,
+        payload: payload as object,
+      },
     });
+  } catch (error) {
+    const maybePrisma = error as { code?: string };
+    if (maybePrisma.code === "P2002") {
+      logWebhook({ event: parsedEvent, bookingId, result: "duplicate_delivery_ignored" });
+      return NextResponse.json({ ok: true, duplicate: true }, { status: 200 });
+    }
+    throw error;
+  }
 
-    if (adminUser?.id) {
-      try {
-        await prisma.meeting.upsert({
-          where: { forgeCalBookingId: normalized.bookingId },
-          create: {
-            userId: adminUser.id,
-            forgeCalBookingId: normalized.bookingId,
-            guestName: normalized.guestName || null,
-            guestEmail: normalized.guestEmail || null,
-            startTime: normalized.startTime ? new Date(normalized.startTime) : null,
-            timezone: normalized.timezone || null,
-            guestMessage: normalized.guestMessage || null,
-            meetingUrl: normalized.meetingUrl || null,
-            status,
-            sourcePayload: payload as object,
-          },
-          update: {
-            guestName: normalized.guestName || undefined,
-            guestEmail: normalized.guestEmail || undefined,
-            startTime: normalized.startTime ? new Date(normalized.startTime) : undefined,
-            timezone: normalized.timezone || undefined,
-            guestMessage: normalized.guestMessage || undefined,
-            meetingUrl: normalized.meetingUrl || undefined,
-            status,
-            sourcePayload: payload as object,
-          },
-        });
-      } catch (syncError) {
-        console.error("[ForgeCal meeting sync] failed to process webhook", syncError);
-      }
+  const status = mapWebhookEventToStatus(parsedEvent);
+  if (status) {
+    try {
+      await prisma.meeting.upsert({
+        where: { forgeCalBookingId: normalized.bookingId },
+        create: {
+          userId: adminUser.id,
+          forgeCalBookingId: normalized.bookingId,
+          guestName: normalized.guestName || null,
+          guestEmail: normalized.guestEmail || null,
+          startTime: normalized.startTime ? new Date(normalized.startTime) : null,
+          timezone: normalized.timezone || null,
+          guestMessage: normalized.guestMessage || null,
+          meetingUrl: normalized.meetingUrl || null,
+          status,
+          sourcePayload: payload as object,
+        },
+        update: {
+          guestName: normalized.guestName || undefined,
+          guestEmail: normalized.guestEmail || undefined,
+          startTime: normalized.startTime ? new Date(normalized.startTime) : undefined,
+          timezone: normalized.timezone || undefined,
+          guestMessage: normalized.guestMessage || undefined,
+          meetingUrl: normalized.meetingUrl || undefined,
+          status,
+          sourcePayload: payload as object,
+        },
+      });
+    } catch (syncError) {
+      logWebhook({
+        event: parsedEvent,
+        bookingId,
+        result: "meeting_sync_failed",
+        error: (syncError as Error).message,
+      });
     }
   }
 
+  try {
+    await runForgeCalWorkflows({
+      eventName: parsedEvent,
+      bookingId: normalized.bookingId,
+      payload,
+    });
+    logWebhook({ event: parsedEvent, bookingId, result: "workflow_completed" });
+  } catch (workflowError) {
+    logWebhook({
+      event: parsedEvent,
+      bookingId,
+      result: "workflow_failed",
+      error: (workflowError as Error).message,
+    });
+  }
+
+  logWebhook({ event: parsedEvent, bookingId, result: "accepted" });
   return NextResponse.json({ ok: true });
 }

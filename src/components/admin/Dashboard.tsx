@@ -54,7 +54,7 @@ export default function Dashboard({ user }: DashboardProps) {
     const skillFormRef = useRef<HTMLFormElement>(null);
     const projectFormRef = useRef<HTMLFormElement>(null);
 
-    async function loadMeetings() {
+    async function loadMeetings(showErrors = true) {
         setLoadingMeetings(true);
         try {
             const response = await fetch('/api/admin/meetings');
@@ -65,11 +65,13 @@ export default function Dashboard({ user }: DashboardProps) {
             }
 
             setMeetings((data?.meetings as Meeting[]) || []);
-            if (typeof data?.error === 'string' && data.error) {
+            if (showErrors && typeof data?.error === 'string' && data.error) {
                 toast.error(data.error);
             }
         } catch (error) {
-            toast.error((error as Error).message || 'Failed to load meetings');
+            if (showErrors) {
+                toast.error((error as Error).message || 'Failed to load meetings');
+            }
         } finally {
             setLoadingMeetings(false);
         }
@@ -173,6 +175,16 @@ export default function Dashboard({ user }: DashboardProps) {
             loadMeetings();
             loadBlocks();
         }
+    }, [activeTab]);
+
+    useEffect(() => {
+        if (activeTab !== 'meetings') return;
+
+        const pollId = setInterval(() => {
+            loadMeetings(false);
+        }, 5000);
+
+        return () => clearInterval(pollId);
     }, [activeTab]);
 
     return (
@@ -722,7 +734,7 @@ export default function Dashboard({ user }: DashboardProps) {
                             </div>
                             <button
                                 type="button"
-                                onClick={loadMeetings}
+                                onClick={() => loadMeetings()}
                                 disabled={loadingMeetings}
                                 className="inline-flex items-center gap-2 bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-50 disabled:opacity-60"
                             >

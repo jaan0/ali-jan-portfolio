@@ -28,7 +28,10 @@ export async function GET() {
 
     return NextResponse.json({ meetings });
   } catch (error) {
-    const message = (error as Error).message || "Failed to load meetings.";
+    const raw = (error as Error).message || "Failed to load meetings.";
+    const message = raw.includes("does not exist")
+      ? "Meeting table is missing in database. Run Prisma schema sync/migration on production."
+      : raw;
     return NextResponse.json({ meetings: [], error: message }, { status: 200 });
   }
 }

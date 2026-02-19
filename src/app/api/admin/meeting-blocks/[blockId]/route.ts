@@ -26,10 +26,13 @@ export async function DELETE(
 
     return NextResponse.json({ ok: true });
   } catch (error) {
+    const raw = (error as Error).message || "Failed to delete block window.";
+    const message = raw.includes("does not exist")
+      ? "MeetingBlock table is missing in database. Run Prisma schema sync/migration on production."
+      : raw;
     return NextResponse.json(
-      { error: (error as Error).message || "Failed to delete block window." },
+      { error: message },
       { status: 500 }
     );
   }
 }
-

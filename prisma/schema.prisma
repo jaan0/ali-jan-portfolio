@@ -13,6 +13,19 @@ enum MeetingStatus {
   canceled
 }
 
+enum ReminderType {
+  reminder_24h
+  reminder_1h
+}
+
+enum ReminderStatus {
+  pending
+  processing
+  sent
+  canceled
+  failed
+}
+
 model User {
   id                   String       @id @default(cuid())
   email                String       @unique
@@ -35,6 +48,8 @@ model User {
   skills               Skill[]
   meetings             Meeting[]
   meetingBlocks        MeetingBlock[]
+  webhookDeliveries    WebhookDelivery[]
+  reminderJobs         ReminderJob[]
 }
 
 model Experience {
@@ -98,6 +113,7 @@ model Meeting {
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
   user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reminderJobs     ReminderJob[]
 
   @@index([userId, startTime])
   @@index([status, startTime])
@@ -114,4 +130,39 @@ model MeetingBlock {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, startTime, endTime])
+}
+
+model WebhookDelivery {
+  id           String   @id @default(cuid())
+  userId       String
+  eventName    String
+  bookingId    String
+  deliveryHash String
+  payload      Json?
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventName, bookingId, deliveryHash])
+  @@index([userId, createdAt])
+}
+
+model ReminderJob {
+  id                String         @id @default(cuid())
+  userId            String
+  meetingId         String?
+  bookingId         String
+  reminderType      ReminderType
+  reminderAt        DateTime
+  status            ReminderStatus @default(pending)
+  attempts          Int            @default(0)
+  lastError         String?
+  payload           Json?
+  sentAt            DateTime?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  user              User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  meeting           Meeting?       @relation(fields: [meetingId], references: [id], onDelete: SetNull)
+
+  @@unique([bookingId, reminderType])
+  @@index([status, reminderAt])
 }

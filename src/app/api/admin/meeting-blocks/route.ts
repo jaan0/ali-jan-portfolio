@@ -27,8 +27,12 @@ export async function GET() {
 
     return NextResponse.json({ blocks });
   } catch (error) {
+    const raw = (error as Error).message || "Failed to load block windows.";
+    const message = raw.includes("does not exist")
+      ? "MeetingBlock table is missing in database. Run Prisma schema sync/migration on production."
+      : raw;
     return NextResponse.json(
-      { error: (error as Error).message || "Failed to load block windows." },
+      { error: message },
       { status: 500 }
     );
   }
@@ -70,10 +74,13 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ block }, { status: 201 });
   } catch (error) {
+    const raw = (error as Error).message || "Failed to create block window.";
+    const message = raw.includes("does not exist")
+      ? "MeetingBlock table is missing in database. Run Prisma schema sync/migration on production."
+      : raw;
     return NextResponse.json(
-      { error: (error as Error).message || "Failed to create block window." },
+      { error: message },
       { status: 500 }
     );
   }
 }
-
